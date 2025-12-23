@@ -1,0 +1,64 @@
+@model BulletinBoard.Web.Models.AnnouncementViewModel
+
+@{
+    ViewData["Title"] = "ДЕТАЛІ ОГОЛОШЕННЯ";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="cyber-card">
+            <div class="cyber-card-header">
+                <div class="small text-muted mb-1">ID: #@Model.Id.ToString("D4")</div>
+                <h2 class="mb-0 text-white fw-bold">@Model.Title</h2>
+            </div>
+            <div class="cyber-card-body">
+                <div class="row mb-4">
+                    <div class="col-sm-3 form-label-custom">Ціна</div>
+                    <div class="col-sm-9">
+                        <span class="card-price" style="font-size: 1.5rem;">@(Model.Price?.ToString("N2") ?? "0.00") $</span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-3 form-label-custom">Опис</div>
+                    <div class="col-sm-9 text-white">@Html.Raw(Model.Description.Replace("\n", "<br/>"))</div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-3 form-label-custom">Категорія</div>
+                    <div class="col-sm-9">
+                        <span class="tag">#@Model.CategoryName.ToLower().Replace(" ", "_")</span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-3 form-label-custom">Підкатегорія</div>
+                    <div class="col-sm-9">
+                        <span class="tag">#@Model.SubCategoryName.ToLower().Replace(" ", "_")</span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-3 form-label-custom">Статус</div>
+                    <div class="col-sm-9">
+                        <span class="tag" style="border-color: @(Model.IsActive ? "var(--green)" : "var(--pink)"); color: @(Model.IsActive ? "var(--green)" : "var(--pink)");">
+                            @(Model.IsActive ? "АКТИВНЕ" : "НЕАКТИВНЕ")
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row mb-0">
+                    <div class="col-sm-3 form-label-custom">Дата створення</div>
+                    <div class="col-sm-9 text-muted small">@Model.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</div>
+                </div>
+            </div>
+            <div class="cyber-card-footer d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-cyber btn-cyber-secondary">НАЗАД</a>
+                <div class="btn-group">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-cyber btn-cyber-primary me-2">РЕДАГУВАТИ</a>
+                    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-cyber btn-cyber-danger">ВИДАЛИТИ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+@model BulletinBoard.Web.Models.AnnouncementViewModel
+
+@{
+    ViewData["Title"] = "ВИДАЛЕННЯ ОГОЛОШЕННЯ";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="cyber-card" style="border-color: var(--pink);">
+            <div class="cyber-card-header" style="border-bottom-color: var(--pink);">
+                <h2 class="mb-0 text-white fw-bold" style="color: var(--pink) !important;">@ViewData["Title"]</h2>
+            </div>
+            <div class="cyber-card-body">
+                <h4 class="text-white mb-4">Ви впевнені, що хочете видалити це оголошення?</h4>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3 form-label-custom">Назва</div>
+                    <div class="col-sm-9 text-white fw-bold">@Model.Title</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-3 form-label-custom">Категорія</div>
+                    <div class="col-sm-9 text-muted">@Model.CategoryName</div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-3 form-label-custom">Підкатегорія</div>
+                    <div class="col-sm-9 text-muted">@Model.SubCategoryName</div>
+                </div>
+
+                @using (Html.BeginForm("Delete", "Announcements", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+                    <div class="d-flex justify-content-between mt-5">
+                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-cyber btn-cyber-secondary">СКАСУВАТИ</a>
+                        <button type="submit" class="btn btn-cyber btn-cyber-danger">ПІДТВЕРДИТИ ВИДАЛЕННЯ</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

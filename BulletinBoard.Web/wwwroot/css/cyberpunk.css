@@ -1,0 +1,329 @@
+:root {
+    --bg-color: #121212;
+    --grid-color: rgba(255, 255, 255, 0.05);
+    --text-color: #b0b0b0;
+    --muted-text: #666666;
+    --cyan: #00d2d6;
+    --green: #4CAF50;
+    --yellow: #FFC107;
+    --pink: #E91E63;
+    --white: #ffffff;
+    --card-bg: #1e1e1e;
+    --card-border: #333333;
+    --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: 
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: var(--text-color);
+    font-family: var(--font-main);
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: #1a1a1a !important;
+    border-bottom: 1px solid var(--card-border) !important;
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--white) !important;
+}
+
+.brand-status {
+    font-size: 0.75rem;
+    color: var(--muted-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+
+.btn-post {
+    background: transparent;
+    border: 1px solid var(--muted-text);
+    color: var(--white);
+    padding: 0.4rem 1.2rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: all 0.2s;
+}
+
+.btn-post:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--white);
+    color: var(--white);
+}
+
+/* Card Styles */
+.announcement-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    position: relative;
+    height: 100%;
+    transition: all 0.2s ease;
+    margin-bottom: 0;
+}
+
+.announcement-card:hover {
+    border-color: #444;
+    transform: translateY(-2px);
+}
+
+.new-ribbon {
+    position: absolute;
+    top: 10px;
+    right: -5px;
+    background: var(--cyan);
+    color: var(--bg-color);
+    padding: 2px 10px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    transform: rotate(3deg);
+    z-index: 10;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.announcement-card .card-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.card-id {
+    color: var(--muted-text);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-price {
+    color: var(--white);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.price-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.dot-cyan { background-color: var(--cyan); }
+.dot-green { background-color: var(--green); }
+.dot-yellow { background-color: var(--yellow); }
+.dot-pink { background-color: var(--pink); }
+
+.card-title {
+    color: var(--white);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.card-description {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.tag {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #333;
+    color: #777;
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    text-transform: lowercase;
+}
+
+.btn-contact {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid transparent;
+    color: var(--white);
+    border-radius: 2px;
+    padding: 0.6rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+.btn-contact:hover {
+    background: #333;
+    color: var(--white);
+}
+
+/* Filter Styles - Adjusted for mockup style */
+.filters-section {
+    background: rgba(26, 26, 26, 0.5);
+    border: 1px solid var(--card-border);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+}
+
+.form-select-custom {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: var(--white);
+    border-radius: 2px;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.form-select-custom:focus {
+    border-color: #555;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Loading Indicator */
+#loadingIndicator {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--grid-color);
+    border-top: 4px solid var(--cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+/* Global Form Styles */
+.form-label-custom {
+    color: var(--muted-text);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-control-custom {
+    background-color: var(--card-bg);
+    border: 1px solid #333;
+    color: var(--white);
+    border-radius: 0;
+    padding: 0.75rem;
+}
+
+.form-control-custom:focus {
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(0, 251, 255, 0.2);
+    background-color: var(--card-bg);
+    color: var(--white);
+}
+
+.btn-cyber {
+    border-radius: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.3s;
+}
+
+.btn-cyber-primary {
+    background: transparent;
+    border: 2px solid var(--cyan);
+    color: var(--cyan);
+}
+
+.btn-cyber-primary:hover {
+    background: var(--cyan);
+    color: var(--bg-color);
+}
+
+.btn-cyber-secondary {
+    background: transparent;
+    border: 2px solid var(--muted-text);
+    color: var(--muted-text);
+}
+
+.btn-cyber-secondary:hover {
+    background: var(--muted-text);
+    color: var(--bg-color);
+}
+
+.btn-cyber-danger {
+    background: transparent;
+    border: 2px solid var(--pink);
+    color: var(--pink);
+}
+
+.btn-cyber-danger:hover {
+    background: var(--pink);
+    color: var(--white);
+}
+
+/* Custom Card for Details/Forms */
+.cyber-card {
+    background-color: var(--card-bg);
+    border: 1px solid #333;
+    border-radius: 0;
+    position: relative;
+}
+
+.cyber-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 20px;
+    height: 20px;
+    border-top: 2px solid var(--cyan);
+    border-left: 2px solid var(--cyan);
+}
+
+.cyber-card-header {
+    border-bottom: 1px solid #333;
+    padding: 1.5rem;
+}
+
+.cyber-card-body {
+    padding: 1.5rem;
+}
+
+.cyber-card-footer {
+    border-top: 1px solid #333;
+    padding: 1.5rem;
+}

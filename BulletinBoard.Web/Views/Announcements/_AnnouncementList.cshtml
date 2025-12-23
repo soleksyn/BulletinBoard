@@ -1,0 +1,45 @@
+@model IEnumerable<BulletinBoard.Web.Models.AnnouncementViewModel>
+
+@{
+    var dots = new[] { "cyan", "green", "yellow", "pink" };
+    int i = 0;
+}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+    @foreach (var item in Model)
+    {
+        var dotClass = $"dot-{dots[i % dots.Length]}";
+        var isNew = item.CreatedDate > DateTime.Now.AddDays(-1);
+        <div class="col">
+            <div class="announcement-card">
+                @if (isNew)
+                {
+                    <div class="new-ribbon">NEW!</div>
+                }
+                <div class="card-body">
+                    <div class="card-header-info">
+                        <div class="card-id">ID: @item.Id.ToString("D4")</div>
+                        <div class="price-container">
+                            <span class="card-price">@(item.Price?.ToString("N0") ?? "0") $</span>
+                            <div class="price-dot @dotClass"></div>
+                        </div>
+                    </div>
+                    
+                    <h5 class="card-title">@item.Title</h5>
+                    
+                    <p class="card-description">
+                        @item.Description
+                    </p>
+                    
+                    <div class="tags-container">
+                        <span class="tag">@item.CategoryName</span>
+                        <span class="tag">@item.SubCategoryName</span>
+                    </div>
+                    
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn-contact">ЗВ'ЯЗАТИСЬ</a>
+                </div>
+            </div>
+        </div>
+        i++;
+    }
+</div>

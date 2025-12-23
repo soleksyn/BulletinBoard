@@ -1,0 +1,99 @@
+@model BulletinBoard.Web.Models.AnnouncementViewModel
+
+@{
+    ViewData["Title"] = "СТВОРЕННЯ ОГОЛОШЕННЯ";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="cyber-card">
+            <div class="cyber-card-header">
+                <h2 class="mb-0 text-white fw-bold">@ViewData["Title"]</h2>
+            </div>
+            <div class="cyber-card-body">
+                @using (Html.BeginForm("Create", "Announcements", FormMethod.Post, new { id = "createForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="mb-4">
+                        <label class="form-label-custom">Назва</label>
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control-custom w-100", placeholder = "Введіть назву..." })
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label-custom">Опис</label>
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control-custom w-100", rows = 5, placeholder = "Детальний опис..." })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger small" })
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label-custom">Категорія</label>
+                            @Html.DropDownListFor(m => m.CategoryId, Model.Categories, "Оберіть категорію", new { @class = "form-select form-select-custom", id = "categoryDropdown" })
+                            @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger small" })
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label-custom">Підкатегорія</label>
+                            @Html.DropDownListFor(m => m.SubCategoryId, Model.SubCategories, "Оберіть підкатегорію", new { 
+                                @class = "form-select form-select-custom", 
+                                id = "subCategoryDropdown",
+                                disabled = "disabled"
+                            })
+                            @Html.ValidationMessageFor(m => m.SubCategoryId, "", new { @class = "text-danger small" })
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label-custom">Ціна</label>
+                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control-custom w-100", type = "number", step = "0.01", placeholder = "0.00" })
+                            @Html.ValidationMessageFor(m => m.Price, "", new { @class = "text-danger small" })
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            @Html.CheckBoxFor(m => m.IsActive, new { @class = "form-check-input" })
+                            <label class="form-check-label text-white small">Активне оголошення</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-5">
+                        <a asp-action="Index" class="btn btn-cyber btn-cyber-secondary">НАЗАД</a>
+                        <button type="submit" class="btn btn-cyber btn-cyber-primary">ОПУБЛІКУВАТИ</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('#categoryDropdown').change(function () {
+                var categoryId = $(this).val();
+                var subCategoryDropdown = $('#subCategoryDropdown');
+                
+                subCategoryDropdown.empty();
+                subCategoryDropdown.append($('<option/>', {
+                    value: '',
+                    text: 'Оберіть підкатегорію'
+                }));
+
+                if (categoryId) {
+                    subCategoryDropdown.prop('disabled', false);
+                    $.getJSON('@Url.Action("GetSubCategories", "Announcements")', { categoryId: categoryId }, function (data) {
+                        $.each(data, function (index, item) {
+                            subCategoryDropdown.append($('<option/>', {
+                                value: item.value,
+                                text: item.text
+                            }));
+                        });
+                    });
+                } else {
+                    subCategoryDropdown.prop('disabled', true);
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,87 @@
+@model BulletinBoard.Web.Models.AnnouncementListViewModel
+
+@{
+    ViewData["Title"] = "BOARD_SYSTEM";
+}
+
+<div class="filters-section">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="mb-1 small text-muted text-uppercase">КАТЕГОРІЯ</div>
+            @Html.DropDownList("categoryId", Model.Categories, "Усі категорії", new { @class = "form-select form-select-custom", id = "categoryDropdown" })
+        </div>
+        <div class="col-md-6">
+            <div class="mb-1 small text-muted text-uppercase">ПІДКАТЕГОРІЯ</div>
+            @Html.DropDownList("subCategoryId", Model.SubCategories, "Усі підкатегорії", new { 
+                @class = "form-select form-select-custom", 
+                id = "subCategoryDropdown",
+                disabled = !Model.SelectedCategoryId.HasValue ? "disabled" : null
+            })
+        </div>
+    </div>
+</div>
+
+<div id="loadingIndicator">
+    <div class="spinner"></div>
+    <div class="mt-2 small text-muted">ЗАВАНТАЖЕННЯ ДАНИХ...</div>
+</div>
+
+<div id="announcementsContainer">
+    @await Html.PartialAsync("_AnnouncementList", Model.Announcements)
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let filterTimeout;
+
+            function updateAnnouncements() {
+                const categoryId = $('#categoryDropdown').val();
+                const subCategoryId = $('#subCategoryDropdown').val();
+                
+                $('#loadingIndicator').show();
+                $('#announcementsContainer').css('opacity', '0.5');
+
+                $.ajax({
+                    url: '@Url.Action("Filter", "Announcements")',
+                    data: { categoryId: categoryId, subCategoryId: subCategoryId },
+                    success: function (html) {
+                        $('#announcementsContainer').html(html);
+                    },
+                    complete: function () {
+                        $('#loadingIndicator').hide();
+                        $('#announcementsContainer').css('opacity', '1');
+                    }
+                });
+            }
+
+            $('#categoryDropdown').change(function () {
+                const categoryId = $(this).val();
+                const subCategoryDropdown = $('#subCategoryDropdown');
+                
+                subCategoryDropdown.empty();
+                subCategoryDropdown.append($('<option/>', { value: '', text: 'Усі підкатегорії' }));
+
+                if (categoryId) {
+                    subCategoryDropdown.prop('disabled', false);
+                    $.getJSON('@Url.Action("GetSubCategories", "Announcements")', { categoryId: categoryId }, function (data) {
+                        $.each(data, function (index, item) {
+                            subCategoryDropdown.append($('<option/>', {
+                                value: item.value,
+                                text: item.text
+                            }));
+                        });
+                        updateAnnouncements();
+                    });
+                } else {
+                    subCategoryDropdown.prop('disabled', true);
+                    updateAnnouncements();
+                }
+            });
+
+            $('#subCategoryDropdown').change(function () {
+                updateAnnouncements();
+            });
+        });
+    </script>
+}
