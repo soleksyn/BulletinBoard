@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BulletinBoard.Data
+using BulletinBoard.Data.DTOs;
+
+namespace BulletinBoard.Data.Interfaces
 {
     public interface ICategoryRepository
     {

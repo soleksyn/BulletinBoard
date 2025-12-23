@@ -10,16 +10,39 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 
 // Register HttpClient and ApiServices
-builder.Services.AddHttpClient<IApiAnnouncementService, ApiAnnouncementService>(client =>
+if (builder.Environment.IsDevelopment())
 {
-    var baseUrl = builder.Configuration.GetValue<string>("ApiSettings:BaseUrl");
-    client.BaseAddress = new Uri(baseUrl);
-});
-builder.Services.AddHttpClient<IApiCategoryService, ApiCategoryService>(client =>
+    builder.Services.AddHttpClient<IApiAnnouncementService, ApiAnnouncementService>(client =>
+    {
+        var baseUrl = builder.Configuration.GetValue<string>("ApiSettings:BaseUrl");
+        client.BaseAddress = new Uri(baseUrl);
+    }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+    });
+
+    builder.Services.AddHttpClient<IApiCategoryService, ApiCategoryService>(client =>
+    {
+        var baseUrl = builder.Configuration.GetValue<string>("ApiSettings:BaseUrl");
+        client.BaseAddress = new Uri(baseUrl);
+    }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+    });
+}
+else
 {
-    var baseUrl = builder.Configuration.GetValue<string>("ApiSettings:BaseUrl");
-    client.BaseAddress = new Uri(baseUrl);
-});
+    builder.Services.AddHttpClient<IApiAnnouncementService, ApiAnnouncementService>(client =>
+    {
+        var baseUrl = builder.Configuration.GetValue<string>("ApiSettings:BaseUrl");
+        client.BaseAddress = new Uri(baseUrl);
+    });
+    builder.Services.AddHttpClient<IApiCategoryService, ApiCategoryService>(client =>
+    {
+        var baseUrl = builder.Configuration.GetValue<string>("ApiSettings:BaseUrl");
+        client.BaseAddress = new Uri(baseUrl);
+    });
+}
 
 var app = builder.Build();
 

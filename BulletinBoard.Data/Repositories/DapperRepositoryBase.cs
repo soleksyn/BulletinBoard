@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
-namespace BulletinBoard.Data
+namespace BulletinBoard.Data.Repositories
 {
     public abstract class DapperRepositoryBase
     {
@@ -22,9 +25,9 @@ namespace BulletinBoard.Data
                     return await db.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw new System.Exception($"Error executing stored procedure {storedProcedure}: {ex.Message}", ex);
+                throw new Exception($"Error executing stored procedure {storedProcedure}: {ex.Message}", ex);
             }
         }
 
@@ -37,9 +40,9 @@ namespace BulletinBoard.Data
                     return await db.QueryFirstOrDefaultAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw new System.Exception($"Error executing stored procedure {storedProcedure}: {ex.Message}", ex);
+                throw new Exception($"Error executing stored procedure {storedProcedure}: {ex.Message}", ex);
             }
         }
 
@@ -52,9 +55,9 @@ namespace BulletinBoard.Data
                     return await db.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                throw new System.Exception($"Error executing stored procedure {storedProcedure}: {ex.Message}", ex);
+                throw new Exception($"Error executing stored procedure {storedProcedure}: {ex.Message}", ex);
             }
         }
     }

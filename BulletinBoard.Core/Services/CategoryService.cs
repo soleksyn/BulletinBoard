@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BulletinBoard.Data;
+using BulletinBoard.Core.Interfaces;
+using BulletinBoard.Core.Models;
+using BulletinBoard.Data.Interfaces;
 
-namespace BulletinBoard.Core
+namespace BulletinBoard.Core.Services
 {
     public class CategoryService : ICategoryService
     {

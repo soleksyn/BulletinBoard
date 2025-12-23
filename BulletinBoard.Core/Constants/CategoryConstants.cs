@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BulletinBoard.Core
+namespace BulletinBoard.Core.Constants
 {
     public static class CategoryConstants
     {

@@ -1,5 +1,7 @@
-using BulletinBoard.Core;
-using BulletinBoard.Data;
+using BulletinBoard.Core.Interfaces;
+using BulletinBoard.Core.Services;
+using BulletinBoard.Data.Interfaces;
+using BulletinBoard.Data.Repositories;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,7 +40,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BulletinBoard API v1"));
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseCors("AllowAll");
 

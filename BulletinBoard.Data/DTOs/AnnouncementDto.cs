@@ -1,6 +1,6 @@
 using System;
 
-namespace BulletinBoard.Data
+namespace BulletinBoard.Data.DTOs
 {
     public class AnnouncementDto
     {

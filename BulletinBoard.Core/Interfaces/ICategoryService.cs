@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BulletinBoard.Core
+using BulletinBoard.Core.Models;
+
+namespace BulletinBoard.Core.Interfaces
 {
     public interface ICategoryService
     {
