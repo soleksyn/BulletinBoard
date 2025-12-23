@@ -19,7 +19,6 @@ namespace BulletinBoard.Web.Controllers
             _categoryService = categoryService;
         }
 
-        // GET: Announcements
         public async Task<IActionResult> Index(int? categoryId = null, int? subCategoryId = null)
         {
             var announcements = await _apiService.GetAllAsync(categoryId, subCategoryId);
@@ -38,7 +37,6 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // GET: Announcements/Filter (AJAX)
         [HttpGet]
         public async Task<IActionResult> Filter(int? categoryId = null, int? subCategoryId = null)
         {
@@ -46,7 +44,6 @@ namespace BulletinBoard.Web.Controllers
             return PartialView("_AnnouncementList", announcements);
         }
 
-        // GET: Announcements/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var viewModel = await _apiService.GetByIdAsync(id);
@@ -58,7 +55,6 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // GET: Announcements/Create
         public async Task<IActionResult> Create()
         {
             var viewModel = new AnnouncementViewModel
@@ -70,7 +66,6 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: Announcements/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AnnouncementViewModel viewModel)
@@ -93,7 +88,6 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // GET: Announcements/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
             var viewModel = await _apiService.GetByIdAsync(id);
@@ -108,14 +102,13 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: Announcements/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, AnnouncementViewModel viewModel)
         {
             if (id != viewModel.Id)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             if (ModelState.IsValid)
@@ -129,7 +122,6 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // GET: Announcements/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
             var viewModel = await _apiService.GetByIdAsync(id);
@@ -141,7 +133,6 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: Announcements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -150,8 +141,6 @@ namespace BulletinBoard.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        // AJAX: Get subcategories
         [HttpGet]
         public async Task<IActionResult> GetSubCategories(int categoryId)
         {

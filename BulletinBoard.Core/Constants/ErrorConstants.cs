@@ -1,4 +1,4 @@
-namespace BulletinBoard.Core
+namespace BulletinBoard.Core.Constants
 {
     public static class ErrorConstants
     {

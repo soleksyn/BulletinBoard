@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
-using Dapper;
+using BulletinBoard.Data.DTOs;
+using BulletinBoard.Data.Interfaces;
 
-namespace BulletinBoard.Data
+namespace BulletinBoard.Data.Repositories
 {
     public class AnnouncementRepository : DapperRepositoryBase, IAnnouncementRepository
     {
@@ -28,9 +28,11 @@ namespace BulletinBoard.Data
 
         public async Task<IEnumerable<AnnouncementDto>> GetAllAsync(int? categoryId = null, int? subCategoryId = null)
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("@CategoryId", categoryId, DbType.Int32, ParameterDirection.Input);
-            parameters.Add("@SubCategoryId", subCategoryId, DbType.Int32, ParameterDirection.Input);
+            var parameters = new
+            {
+                CategoryId = categoryId,
+                SubCategoryId = subCategoryId
+            };
 
             return await GetCollectionAsync<AnnouncementDto>("[dbo].[sp_GetAllAnnouncements]", parameters);
         }

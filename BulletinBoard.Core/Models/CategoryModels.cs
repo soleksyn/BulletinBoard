@@ -1,12 +1,12 @@
-namespace BulletinBoard.Data
+namespace BulletinBoard.Core.Models
 {
-    public class CategoryDto
+    public class CategoryModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
     }
 
-    public class SubCategoryDto
+    public class SubCategoryModel
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }

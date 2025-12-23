@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BulletinBoard.Data.DTOs;
+using BulletinBoard.Data.Interfaces;
 
-namespace BulletinBoard.Data
+namespace BulletinBoard.Data.Repositories
 {
     public class CategoryRepository : DapperRepositoryBase, ICategoryRepository
     {

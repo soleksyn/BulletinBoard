@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using BulletinBoard.Core;
+using BulletinBoard.Core.Interfaces;
+using BulletinBoard.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulletinBoard.API.Controllers
@@ -24,7 +26,7 @@ namespace BulletinBoard.API.Controllers
                 var categories = await _service.GetAllCategoriesAsync();
                 return Ok(categories);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
@@ -38,7 +40,7 @@ namespace BulletinBoard.API.Controllers
                 var subCategories = await _service.GetSubCategoriesAsync(categoryId);
                 return Ok(subCategories);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }

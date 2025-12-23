@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace BulletinBoard.Core
+namespace BulletinBoard.Core.Models
 {
     public class AnnouncementModel
     {
