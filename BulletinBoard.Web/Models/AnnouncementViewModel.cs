@@ -34,7 +34,7 @@ namespace BulletinBoard.Web.Models
 
         [Display(Name = "Price")]
         public decimal? Price { get; set; }
-
+        public int UserId { get; set; }
         public string CategoryName { get; set; }
         public string SubCategoryName { get; set; }
 

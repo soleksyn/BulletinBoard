@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using BulletinBoard.Data.DTOs;
 
 namespace BulletinBoard.Data.Interfaces

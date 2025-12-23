@@ -7,6 +7,8 @@ CREATE TABLE [dbo].[Announcements] (
     [CategoryId] INT NOT NULL,
     [SubCategoryId] INT NOT NULL,
     [Price] DECIMAL(18, 2) NULL,
+    [UserId] INT NOT NULL,
     CONSTRAINT FK_Announcements_Categories FOREIGN KEY (CategoryId) REFERENCES dbo.Categories(Id),
-    CONSTRAINT FK_Announcements_SubCategories FOREIGN KEY (SubCategoryId) REFERENCES dbo.SubCategories(Id)
+    CONSTRAINT FK_Announcements_SubCategories FOREIGN KEY (SubCategoryId) REFERENCES dbo.SubCategories(Id),
+    CONSTRAINT FK_Announcements_Users FOREIGN KEY (UserId) REFERENCES dbo.Users(Id)
 );

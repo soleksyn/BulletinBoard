@@ -1,16 +1,16 @@
 -- ============================================= 
--- Stored Procedure: [dbo].[sp_GetAnnouncementById] 
--- Description: Gets an announcement by Id 
--- Created: 2025-12-21 
+-- Stored Procedure: [dbo].[sp_GetAnnouncementsByUserId] 
+-- Description: Gets all announcements for a specific user 
+-- Created: 2025-12-23 
 -- Author: Assistant 
 -- ============================================= 
  
- IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetAnnouncementById]') AND type in (N'P', N'PC')) 
- DROP PROCEDURE [dbo].[sp_GetAnnouncementById] 
+ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_GetAnnouncementsByUserId]') AND type in (N'P', N'PC')) 
+ DROP PROCEDURE [dbo].[sp_GetAnnouncementsByUserId] 
  GO 
  
- CREATE PROCEDURE [dbo].[sp_GetAnnouncementById] 
-     @Id INT
+ CREATE PROCEDURE [dbo].[sp_GetAnnouncementsByUserId] 
+     @UserId INT 
  AS 
  BEGIN 
      SET NOCOUNT ON; 
@@ -24,7 +24,8 @@
          FROM [dbo].[Announcements] A
          INNER JOIN [dbo].[Categories] C ON A.[CategoryId] = C.[Id]
          INNER JOIN [dbo].[SubCategories] SC ON A.[SubCategoryId] = SC.[Id]
-         WHERE A.[Id] = @Id;
+         WHERE A.[UserId] = @UserId
+         ORDER BY A.[CreatedDate] DESC;
          
      END TRY 
      BEGIN CATCH 

@@ -23,8 +23,26 @@
                         </a>
                         <span class="brand-status">STATUS: ONLINE | REGION: UA</span>
                     </div>
-                    <div>
-                        <a asp-action="Create" class="btn btn-post">+ СТВОРИТИ</a>
+                    <div class="d-flex align-items-center">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="d-flex align-items-center me-3">
+                                <a asp-controller="Announcements" asp-action="MyAnnouncements" class="small text-primary text-decoration-none text-uppercase me-3">МОЇ ОГОЛОШЕННЯ</a>
+                                <span class="small text-muted text-uppercase me-2">USER:</span>
+                                <span class="small text-primary text-uppercase me-3">@User.Identity.Name</span>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger btn-custom-sm">LOGOUT</button>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="me-3">
+                                <a asp-controller="Account" asp-action="Login" class="btn btn-sm btn-outline-primary btn-custom-sm">LOGIN</a>
+                                <a asp-controller="Account" asp-action="Register" class="btn btn-sm btn-outline-secondary btn-custom-sm">JOIN</a>
+                            </div>
+                        }
+                        <a asp-controller="Announcements" asp-action="Create" class="btn btn-post">+ СТВОРИТИ</a>
                     </div>
                 </div>
             </div>

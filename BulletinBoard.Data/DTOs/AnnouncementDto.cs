@@ -1,5 +1,3 @@
-using System;
-
 namespace BulletinBoard.Data.DTOs
 {
     public class AnnouncementDto
@@ -12,6 +10,7 @@ namespace BulletinBoard.Data.DTOs
         public int? CategoryId { get; set; }
         public int? SubCategoryId { get; set; }
         public decimal? Price { get; set; }
+        public int UserId { get; set; }
         public string CategoryName { get; set; }
         public string SubCategoryName { get; set; }
     }

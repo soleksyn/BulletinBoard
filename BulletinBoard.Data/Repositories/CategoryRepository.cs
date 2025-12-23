@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using BulletinBoard.Data.DTOs;
 using BulletinBoard.Data.Interfaces;
 
@@ -13,7 +11,7 @@ namespace BulletinBoard.Data.Repositories
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategoriesAsync()
         {
-            return await GetCollectionAsync<CategoryDto>("[dbo].[sp_GetAllCategories]", null);
+            return await GetCollectionAsync<CategoryDto>("[dbo].[sp_GetAllCategories]");
         }
 
         public async Task<IEnumerable<SubCategoryDto>> GetSubCategoriesAsync(int categoryId)

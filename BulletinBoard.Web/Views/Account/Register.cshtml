@@ -1,0 +1,58 @@
+@model RegisterModel
+
+@{
+    ViewData["Title"] = "РЕЄСТРАЦІЯ_НОВОГО_ID";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="cyber-card">
+            <div class="cyber-card-header">
+                <h2 class="mb-0 text-white fw-bold">@ViewData["Title"]</h2>
+            </div>
+            <div class="cyber-card-body">
+                <form asp-action="Register" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                    
+                    <div class="mb-4">
+                        <label asp-for="Username" class="form-label-custom">Ім'я користувача</label>
+                        <input asp-for="Username" class="form-control-custom w-100" placeholder="CyberPunk2077" />
+                        <span asp-validation-for="Username" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Email" class="form-label-custom">Електронна пошта</label>
+                        <input asp-for="Email" class="form-control-custom w-100" placeholder="user@net.net" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label-custom">Пароль</label>
+                        <input asp-for="Password" type="password" class="form-control-custom w-100" placeholder="********" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="ConfirmPassword" class="form-label-custom">Підтвердження паролю</label>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control-custom w-100" placeholder="********" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button type="submit" class="btn btn-cyber btn-cyber-primary">СТВОРИТИ АККАУНТ</button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <span class="small text-muted">Вже маєте доступ?</span>
+                    <a asp-action="Login" class="small ms-2 text-cyan text-decoration-none">УВІЙТИ В СИСТЕМУ</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

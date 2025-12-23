@@ -26,7 +26,7 @@ namespace BulletinBoard.Core.Models
         public int? SubCategoryId { get; set; }
 
         public decimal? Price { get; set; }
-
+        public int UserId { get; set; }
         public string CategoryName { get; set; }
         public string SubCategoryName { get; set; }
     }

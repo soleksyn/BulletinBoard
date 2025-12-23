@@ -19,7 +19,7 @@
      BEGIN TRY 
          SELECT 
             A.[Id], A.[Title], A.[Description], A.[CreatedDate], A.[IsActive], 
-            A.[CategoryId], A.[SubCategoryId], A.[Price],
+            A.[CategoryId], A.[SubCategoryId], A.[Price], A.[UserId],
             C.[Name] AS [CategoryName],
              SC.[Name] AS [SubCategoryName]
          FROM [dbo].[Announcements] A

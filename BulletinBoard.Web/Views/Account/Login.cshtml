@@ -1,0 +1,53 @@
+@model LoginModel
+
+@{
+    ViewData["Title"] = "АВТОРИЗАЦІЯ_СИСТЕМИ";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="cyber-card">
+            <div class="cyber-card-header">
+                <h2 class="mb-0 text-white fw-bold">@ViewData["Title"]</h2>
+            </div>
+            <div class="cyber-card-body">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-custom mb-4">
+                        @TempData["SuccessMessage"]
+                    </div>
+                }
+
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+                    
+                    <div class="mb-4">
+                        <label asp-for="Email" class="form-label-custom">Електронна пошта</label>
+                        <input asp-for="Email" class="form-control-custom w-100" placeholder="user@net.net" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label asp-for="Password" class="form-label-custom">Пароль</label>
+                        <input asp-for="Password" type="password" class="form-control-custom w-100" placeholder="********" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button type="submit" class="btn btn-cyber btn-cyber-primary">УВІЙТИ В СИСТЕМУ</button>
+                    </div>
+                </form>
+
+                <div class="mt-4 text-center">
+                    <span class="small text-muted">Немає доступу?</span>
+                    <a asp-action="Register" class="small ms-2 text-cyan text-decoration-none">ЗАРЕЄСТРУВАТИ НОВИЙ ID</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

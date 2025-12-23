@@ -16,7 +16,8 @@
     @IsActive BIT,
     @CategoryId INT,
     @SubCategoryId INT,
-    @Price DECIMAL(18, 2) = NULL
+    @Price DECIMAL(18, 2) = NULL,
+    @UserId INT
 AS 
 BEGIN 
     SET NOCOUNT ON; 
@@ -30,7 +31,8 @@ BEGIN
             [IsActive] = @IsActive,
             [CategoryId] = @CategoryId,
             [SubCategoryId] = @SubCategoryId,
-            [Price] = @Price
+            [Price] = @Price,
+            [UserId] = @UserId
         WHERE [Id] = @Id;
         
         COMMIT TRANSACTION; 

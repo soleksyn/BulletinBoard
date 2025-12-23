@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using BulletinBoard.Data.DTOs;
 using BulletinBoard.Data.Interfaces;
 
@@ -20,7 +18,8 @@ namespace BulletinBoard.Data.Repositories
                 IsActive = announcement.IsActive,
                 CategoryId = announcement.CategoryId,
                 SubCategoryId = announcement.SubCategoryId,
-                Price = announcement.Price
+                Price = announcement.Price,
+                UserId = announcement.UserId
             };
 
             await ExecuteAsync("[dbo].[sp_CreateAnnouncement]", parameters);
@@ -35,6 +34,12 @@ namespace BulletinBoard.Data.Repositories
             };
 
             return await GetCollectionAsync<AnnouncementDto>("[dbo].[sp_GetAllAnnouncements]", parameters);
+        }
+
+        public async Task<IEnumerable<AnnouncementDto>> GetByUserIdAsync(int userId)
+        {
+            var parameters = new { UserId = userId };
+            return await GetCollectionAsync<AnnouncementDto>("[dbo].[sp_GetAnnouncementsByUserId]", parameters);
         }
 
         public async Task<AnnouncementDto> GetByIdAsync(int id)
@@ -53,7 +58,8 @@ namespace BulletinBoard.Data.Repositories
                 IsActive = announcement.IsActive,
                 CategoryId = announcement.CategoryId,
                 SubCategoryId = announcement.SubCategoryId,
-                Price = announcement.Price
+                Price = announcement.Price,
+                UserId = announcement.UserId
             };
 
             await ExecuteAsync("[dbo].[sp_UpdateAnnouncement]", parameters);
