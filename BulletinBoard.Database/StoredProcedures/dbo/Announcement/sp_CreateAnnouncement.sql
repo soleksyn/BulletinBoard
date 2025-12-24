@@ -15,7 +15,8 @@
     @IsActive BIT,
     @CategoryId INT,
     @SubCategoryId INT,
-    @Price DECIMAL(18, 2) = NULL
+    @Price DECIMAL(18, 2) = NULL,
+    @UserId INT
 AS 
 BEGIN 
     SET NOCOUNT ON; 
@@ -23,8 +24,8 @@ BEGIN
     BEGIN TRY 
         BEGIN TRANSACTION; 
         
-        INSERT INTO [dbo].[Announcements] ([Title], [Description], [CreatedDate], [IsActive], [CategoryId], [SubCategoryId], [Price])
-        VALUES (@Title, @Description, GETDATE(), @IsActive, @CategoryId, @SubCategoryId, @Price);
+        INSERT INTO [dbo].[Announcements] ([Title], [Description], [CreatedDate], [IsActive], [CategoryId], [SubCategoryId], [Price], [UserId])
+        VALUES (@Title, @Description, GETDATE(), @IsActive, @CategoryId, @SubCategoryId, @Price, @UserId);
         
         COMMIT TRANSACTION; 
         

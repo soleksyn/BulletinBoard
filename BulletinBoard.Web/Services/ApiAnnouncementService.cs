@@ -33,6 +33,11 @@ namespace BulletinBoard.Web.Services
             return await _httpClient.GetFromJsonAsync<IEnumerable<AnnouncementViewModel>>(url) ?? new List<AnnouncementViewModel>();
         }
 
+        public async Task<IEnumerable<AnnouncementViewModel>> GetMyAnnouncementsAsync()
+        {
+            return await _httpClient.GetFromJsonAsync<IEnumerable<AnnouncementViewModel>>("announcements/mine") ?? new List<AnnouncementViewModel>();
+        }
+
         public async Task<AnnouncementViewModel> GetByIdAsync(int id)
         {
             return await _httpClient.GetFromJsonAsync<AnnouncementViewModel>($"announcements/{id}") ?? new AnnouncementViewModel();

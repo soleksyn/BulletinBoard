@@ -30,6 +30,12 @@ namespace BulletinBoard.Core.Services
             return dtos?.Select(MapToModel) ?? Enumerable.Empty<AnnouncementModel>();
         }
 
+        public async Task<IEnumerable<AnnouncementModel>> GetAnnouncementsByUserIdAsync(int userId)
+        {
+            var dtos = await _repository.GetByUserIdAsync(userId);
+            return dtos?.Select(MapToModel) ?? Enumerable.Empty<AnnouncementModel>();
+        }
+
         public async Task<AnnouncementModel> GetAnnouncementByIdAsync(int id)
         {
             var dto = await _repository.GetByIdAsync(id);
@@ -58,7 +64,8 @@ namespace BulletinBoard.Core.Services
                 IsActive = model.IsActive,
                 CategoryId = model.CategoryId,
                 SubCategoryId = model.SubCategoryId,
-                Price = model.Price
+                Price = model.Price,
+                UserId = model.UserId
             };
         }
 
@@ -74,6 +81,7 @@ namespace BulletinBoard.Core.Services
                 CategoryId = dto.CategoryId,
                 SubCategoryId = dto.SubCategoryId,
                 Price = dto.Price,
+                UserId = dto.UserId,
                 CategoryName = dto.CategoryName ?? "Unknown",
                 SubCategoryName = dto.SubCategoryName ?? "Unknown"
             };

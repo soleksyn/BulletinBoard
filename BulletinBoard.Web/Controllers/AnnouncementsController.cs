@@ -1,5 +1,6 @@
 using BulletinBoard.Web.Models;
 using BulletinBoard.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
@@ -37,6 +38,13 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
+        public async Task<IActionResult> MyAnnouncements()
+        {
+            var announcements = await _apiService.GetMyAnnouncementsAsync();
+            return View(announcements);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Filter(int? categoryId = null, int? subCategoryId = null)
         {
@@ -55,6 +63,7 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Create()
         {
             var viewModel = new AnnouncementViewModel
@@ -68,6 +77,7 @@ namespace BulletinBoard.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> Create(AnnouncementViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -88,6 +98,7 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var viewModel = await _apiService.GetByIdAsync(id);
@@ -98,19 +109,14 @@ namespace BulletinBoard.Web.Controllers
 
             viewModel.Categories = await _categoryService.GetCategoriesAsync();
             viewModel.SubCategories = await _categoryService.GetSubCategoriesAsync(viewModel.CategoryId);
-
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, AnnouncementViewModel viewModel)
+        [Authorize]
+        public async Task<IActionResult> Edit(AnnouncementViewModel viewModel)
         {
-            if (id != viewModel.Id)
-            {
-                return BadRequest();
-            }
-
             if (ModelState.IsValid)
             {
                 await _apiService.UpdateAsync(viewModel);
@@ -122,20 +128,10 @@ namespace BulletinBoard.Web.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Delete(int id)
-        {
-            var viewModel = await _apiService.GetByIdAsync(id);
-            if (viewModel == null)
-            {
-                return NotFound();
-            }
-
-            return View(viewModel);
-        }
-
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
         {
             await _apiService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
